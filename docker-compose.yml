@@ -1,0 +1,23 @@
+services:
+  web-dev:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      VITE_BASE: "/"
+      HOST: "0.0.0.0"
+    command: sh -c "npm install --no-audit --no-fund && npm run dev -- --host 0.0.0.0 --port 5173"
+
+  web-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE: "/"
+    profiles: ["prod"]
+    ports:
+      - "8080:80"

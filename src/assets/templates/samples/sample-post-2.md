@@ -1,0 +1,18 @@
+---
+title: Sample Post Two
+slug: sample-post-2
+description: Another demo showcasing tags, code, and layout.
+date: 2026-02-05
+authorId: author-2
+tags: [javascript, performance]
+---
+
+# Another Post
+
+> Tip: You can use the copy button on code blocks.
+
+```js
+const sleep = (ms) => new Promise(r => setTimeout(r, ms))
+```
+
+Some closing thoughts.

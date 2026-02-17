@@ -1,0 +1,16 @@
+[
+  {
+    "id": "author-1",
+    "name": "Ada Lovelace",
+    "avatarUrl": "",
+    "bio": "Writes about React and tooling.",
+    "social": { "twitter": "ada", "github": "ada" }
+  },
+  {
+    "id": "author-2",
+    "name": "Alan Turing",
+    "avatarUrl": "",
+    "bio": "Writes about JavaScript performance.",
+    "social": { "twitter": "turing", "github": "turing" }
+  }
+]

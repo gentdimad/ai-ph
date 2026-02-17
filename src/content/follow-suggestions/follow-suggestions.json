@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Alex Rivera",
+        "handle": "@alex",
+        "to": "/about"
+    },
+    {
+        "name": "Jane Doe",
+        "handle": "@jane",
+        "to": "/about"
+    },
+    {
+        "name": "Chris P.",
+        "handle": "@chris",
+        "to": "/about"
+    }
+]

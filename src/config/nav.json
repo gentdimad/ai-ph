@@ -1,0 +1,12 @@
+[
+  {
+    "icon": "home",
+    "title": "Home",
+    "to": "/"
+  },
+  {
+    "icon": "user",
+    "title": "About",
+    "to": "/about"
+  }
+]
