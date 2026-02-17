@@ -2,19 +2,19 @@
 // Modify values here to change site-wide metadata and colors.
 
 export const site = {
-  siteName: 'Blog Template',
-  tagline: 'A minimalist blog template',
-  description: 'A Medium-style, component-driven technology blog built with React + Vite.',
-  url: 'http://localhost:5173',
+  siteName: 'AI PH',
+  tagline: 'A website dedicated to help the Philippines with AI adoption by providing guidance to aspiring software developers and non-technical workers.',
+  description: 'A blog about AI for the Philippines',
+  url: 'https://gentdimad.github.io/ai_ph',
   developer: {
-    name: 'Blog Template Team',
-    website: 'https://gentdimad.github.io/blog_template',
-    twitter: 'yourhandle',
+    name: 'AI PH',
+    website: 'https://gentdimad.github.io/ai_ph',
+    twitter: '',
     github: 'gentdimad',
     email: 'victorygingoyon@gmail.com'
   },
   contact: {
-    email: 'contact@example.com'
+    email: 'victorygingoyon@gmail.com'
   },
   // Theme tokens: minimalist monochrome. Adjust just these to re-skin quickly.
   theme: {
