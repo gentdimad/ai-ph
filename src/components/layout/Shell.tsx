@@ -19,6 +19,16 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       return false
     }
   })
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 640 : false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const effectiveCollapsed = collapsed || isMobile
 
   function handleCollapse() {
     setCollapsed(v => !v)
@@ -37,17 +47,19 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className={`${collapsed ? 'grid grid-cols-[68px_1fr]' : 'grid grid-cols-[260px_1fr]'} min-h-screen`}>
-      <aside className="sticky top-0 self-start h-screen border-r border-[color:var(--color-border)] bg-[var(--color-bg-soft)] p-5 flex flex-col gap-4" aria-label="Sidebar">
+    <div className={`grid ${collapsed ? 'grid-cols-[60px_1fr]' : 'grid-cols-[60px_1fr] sm:grid-cols-[220px_1fr]'} min-h-screen transition-[grid-template-columns] duration-300`}>
+      <aside className="sticky top-0 self-start h-screen border-r border-[color:var(--color-border)] bg-[var(--color-bg-soft)] p-3 sm:p-5 flex flex-col gap-4" aria-label="Sidebar">
         <div className="flex items-center justify-between">
           <Link to={DEFAULT_ROOT_PATH || '/'} className="inline-flex items-center gap-2 font-bold tracking-[0.3px]" aria-label={site.siteName}>
-            <span className={`${collapsed ? 'hidden' : 'inline'}`}>{site.siteName}</span>
+            <span className={`${effectiveCollapsed ? 'hidden' : 'inline'}`}>{site.siteName}</span>
           </Link>
-          <div className="h-6 w-6 px-1 py-1 border border-gray-700 rounded-md" onClick={handleCollapse}>
-            {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </div>
+          {!isMobile && (
+            <div className="h-6 w-6 px-1 py-1 border border-gray-700 rounded-md cursor-pointer hover:bg-gray-800 transition-colors" onClick={handleCollapse}>
+              {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </div>
+          )}
         </div>
-        {/*<div className={`${collapsed ? 'hidden' : 'block'}`}>*/}
+        {/*<div className={`${effectiveCollapsed ? 'hidden' : 'block'}`}>*/}
         {/*  <SearchBar />*/}
         {/*</div>*/}
         <nav className="flex flex-col gap-1" aria-label="Primary">
@@ -59,12 +71,12 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 key={item.to}
                 to={item.to}
                 end={isRoot}
-                className={({ isActive }) => `inline-flex items-center ${collapsed ? 'justify-center gap-0' : 'gap-2'} text-[color:var(--color-muted)] px-2 py-1 rounded ${isActive ? 'text-[color:var(--color-text)]' : ''}`}
+                className={({ isActive }) => `inline-flex items-center ${effectiveCollapsed ? 'justify-center gap-0' : 'gap-2'} text-[color:var(--color-muted)] px-2 py-1 rounded hover:bg-[var(--color-elev)] transition-colors ${isActive ? 'text-[color:var(--color-text)] bg-[var(--color-elev)]' : ''}`}
               >
                 <span className="w-8 h-8 rounded-md px-1 py-1 grid place-items-center" aria-hidden>
-                  <Icon className="flex w-7 h-7" />
+                  <Icon className="flex w-6 h-6 sm:w-7 sm:h-7" />
                 </span>
-                <span className={`${collapsed ? 'hidden' : 'inline'} ml-2`}>{item.title}</span>
+                <span className={`${effectiveCollapsed ? 'hidden' : 'inline'} ml-2 text-sm`}>{item.title}</span>
               </NavLink>
             )
           })}
