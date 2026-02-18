@@ -47,21 +47,23 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className={`grid ${collapsed ? 'grid-cols-[60px_1fr]' : 'grid-cols-[60px_1fr] sm:grid-cols-[220px_1fr]'} min-h-screen transition-[grid-template-columns] duration-300`}>
-      <aside className="sticky top-0 self-start h-screen border-r border-[color:var(--color-border)] bg-[var(--color-bg-soft)] p-3 sm:p-5 flex flex-col gap-4" aria-label="Sidebar">
+    <div className="min-h-screen flex">
+      {/* Fixed Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 bottom-0 z-50 border-r border-[color:var(--color-border)] bg-[var(--color-bg-soft)] p-3 sm:p-5 flex flex-col gap-4 transition-all duration-300 ${effectiveCollapsed ? 'w-[60px]' : 'w-[220px]'} overflow-y-auto overflow-x-hidden`}
+        aria-label="Sidebar"
+      >
         <div className="flex items-center justify-between">
           <Link to={DEFAULT_ROOT_PATH || '/'} className="inline-flex items-center gap-2 font-bold tracking-[0.3px]" aria-label={site.siteName}>
             <span className={`${effectiveCollapsed ? 'hidden' : 'inline'}`}>{site.siteName}</span>
           </Link>
           {!isMobile && (
-            <div className="h-6 w-6 px-1 py-1 border border-gray-700 rounded-md cursor-pointer hover:bg-gray-800 transition-colors" onClick={handleCollapse}>
+            <div className="h-6 w-6 px-1 py-1 border border-gray-700 rounded-md cursor-pointer hover:bg-gray-800 transition-colors shrink-0" onClick={handleCollapse}>
               {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </div>
           )}
         </div>
-        {/*<div className={`${effectiveCollapsed ? 'hidden' : 'block'}`}>*/}
-        {/*  <SearchBar />*/}
-        {/*</div>*/}
+
         <nav className="flex flex-col gap-1" aria-label="Primary">
           {navItems.map(item => {
             const Icon = iconMap[item.icon] || HomeIcon
@@ -73,20 +75,24 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 end={isRoot}
                 className={({ isActive }) => `inline-flex items-center ${effectiveCollapsed ? 'justify-center gap-0' : 'gap-2'} text-[color:var(--color-muted)] px-2 py-1 rounded hover:bg-[var(--color-elev)] transition-colors ${isActive ? 'text-[color:var(--color-text)] bg-[var(--color-elev)]' : ''}`}
               >
-                <span className="w-8 h-8 rounded-md px-1 py-1 grid place-items-center" aria-hidden>
+                <span className="w-8 h-8 rounded-md px-1 py-1 grid place-items-center shrink-0" aria-hidden>
                   <Icon className="flex w-6 h-6 sm:w-7 sm:h-7" />
                 </span>
-                <span className={`${effectiveCollapsed ? 'hidden' : 'inline'} ml-2 text-sm`}>{item.title}</span>
+                <span className={`${effectiveCollapsed ? 'hidden' : 'inline'} ml-2 text-sm truncate`}>{item.title}</span>
               </NavLink>
             )
           })}
         </nav>
-        <div className="mt-auto">
+        <div className="mt-auto pt-4 border-t border-[color:var(--color-border)]">
           <ThemeToggle />
         </div>
       </aside>
-      <div className="min-w-0">
-        {children}
+
+      {/* Content Area */}
+      <div className={`flex-1 transition-all duration-300 min-w-0 ${effectiveCollapsed ? 'ml-[60px]' : 'ml-[60px] sm:ml-[220px]'}`}>
+        <div className="w-full max-w-full">
+          {children}
+        </div>
       </div>
     </div>
   )

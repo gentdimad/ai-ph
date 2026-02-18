@@ -1,5 +1,6 @@
-import React from 'react'
+import { useRef } from 'react'
 
 export default function Prose({ children }: { children: React.ReactNode }) {
-  return <div className="prose">{children}</div>
+  const containerRef = useRef<HTMLDivElement>(null)
+  return <div ref={containerRef} className="prose">{children}</div>
 }

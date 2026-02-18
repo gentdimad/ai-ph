@@ -15,6 +15,7 @@ html,
 body,
 #root {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -333,16 +334,30 @@ footer.site-footer {
 }
 
 /* Tables */
+.table-wrapper {
+  width: 100%;
+  margin: var(--space-8) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  background: var(--color-bg-soft);
+}
+
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--space-8) 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
 .prose th,
 .prose td {
-  border: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   padding: var(--space-3) var(--space-4);
   text-align: left;
 }
@@ -351,6 +366,11 @@ footer.site-footer {
   background: var(--color-bg-soft);
   font-weight: 700;
   color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.prose tr:last-child td {
+  border-bottom: 0;
 }
 
 .prose tr:nth-child(even) {
