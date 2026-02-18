@@ -16,9 +16,10 @@ This guide covers the essentials of managing your self-hosted Neo4j graph databa
 To begin, you need the official Neo4j driver.
 ```bash
 pip install neo4j
+```
 
-
-The Connection "Interface"Save this as database.py. It handles the "handshake" between Python and your server.
+The Connection "Interface"
+Save this as database.py. It handles the "handshake" between Python and your server.
 
 
 ```python
@@ -39,7 +40,7 @@ class Neo4jConnection:
 ```
 
 # 🧑‍🤝‍🧑 2. The Friendship Recommender (Repository Pattern)
-Instead of writing database code everywhere, we use a Repository. This keeps your code organized by grouping related actions (like adding friends) into one place.friend_repo.py
+Instead of writing database code everywhere, we use a Repository. This keeps your code organized by grouping related actions (like adding friends) into one place.
 
 ```python
 class FriendRepository:
