@@ -22,17 +22,17 @@ export async function mdToHtml(md: string) {
     const rows = data.slice(1)
 
     // 1. Desktop HTML Table
-    const desktopRows = data.map((cells, index) => {
+    const desktopRows = data.map((cells: any, index: any) => {
       const tag = index === 0 ? 'th' : 'td'
-      const rowContent = cells.map(c => `<${tag}>${c}</${tag}>`).join('')
+      const rowContent = cells.map((c: any) => `<${tag}>${c}</${tag}>`).join('')
       return `<tr>${rowContent}</tr>`
     })
     const desktopTable = `<div class="table-wrapper hidden sm:block"><table><thead>${desktopRows[0]}</thead><tbody>${desktopRows.slice(1).join('')}</tbody></table></div>`
 
     // 2. Mobile Card Stack
-    const mobileCards = rows.map(row => {
+    const mobileCards = rows.map((row: any) => {
       const title = row[0]
-      const details = row.slice(1).map((cell, i) => {
+      const details = row.slice(1).map((cell: any, i: any) => {
         const header = headers[i + 1] || ''
         return `<div class="flex flex-col gap-1"><span class="text-[0.65rem] uppercase tracking-wider text-[color:var(--color-muted)] font-bold">${header}</span><span class="text-sm">${cell}</span></div>`
       }).join('')
