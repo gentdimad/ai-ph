@@ -13,17 +13,35 @@ export async function mdToHtml(md: string) {
     const lines = content.trim().split('\n').map((l: string) => l.trim()).filter(Boolean)
     if (lines.length === 0) return ''
 
-    const rows = lines.map((line: string, index: number) => {
-      const cells = line.includes('|') ? line.split('|') : line.split(':')
-      const tag = index === 0 ? 'th' : 'td'
-      const rowContent = cells.map((c: string) => `<${tag}>${c.trim()}</${tag}>`).join('')
-      return `<tr>${rowContent}</tr>`
+    // Parse data
+    const data = lines.map((line: string) => {
+      return line.includes('|') ? line.split('|').map(s => s.trim()) : line.split(':').map(s => s.trim())
     })
 
-    const header = rows[0]
-    const body = rows.slice(1).join('')
+    const headers = data[0]
+    const rows = data.slice(1)
 
-    return `\n<div class="table-wrapper"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>\n`
+    // 1. Desktop HTML Table
+    const desktopRows = data.map((cells, index) => {
+      const tag = index === 0 ? 'th' : 'td'
+      const rowContent = cells.map(c => `<${tag}>${c}</${tag}>`).join('')
+      return `<tr>${rowContent}</tr>`
+    })
+    const desktopTable = `<div class="table-wrapper hidden sm:block"><table><thead>${desktopRows[0]}</thead><tbody>${desktopRows.slice(1).join('')}</tbody></table></div>`
+
+    // 2. Mobile Card Stack
+    const mobileCards = rows.map(row => {
+      const title = row[0]
+      const details = row.slice(1).map((cell, i) => {
+        const header = headers[i + 1] || ''
+        return `<div class="flex flex-col gap-1"><span class="text-[0.65rem] uppercase tracking-wider text-[color:var(--color-muted)] font-bold">${header}</span><span class="text-sm">${cell}</span></div>`
+      }).join('')
+
+      return `<div class="border border-[color:var(--color-border)] rounded-lg p-4 bg-[var(--color-bg-soft)] flex flex-col gap-3"><div class="text-lg font-bold border-b border-[color:var(--color-border)] pb-2 mb-1">${title}</div><div class="grid grid-cols-1 gap-4">${details}</div></div>`
+    }).join('\n\n')
+    const mobileContainer = `<div class="flex flex-col gap-4 sm:hidden my-8">\n\n${mobileCards}\n\n</div>`
+
+    return `\n\n${desktopTable}\n\n${mobileContainer}\n\n`
   })
 
   const file = await unified()
