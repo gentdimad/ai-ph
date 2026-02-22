@@ -20,10 +20,13 @@ export default function RecommendationsList({ children }: { children: React.Reac
   const staffPicks: StaffPick[] = staffPicksData
   const topics: Topic[] = topicsData
 
+  const [searchBar, ...postContent] = React.Children.toArray(children)
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_minmax(260px,320px)]">
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0">{postContent}</div>
       <aside className="hidden lg:block" aria-label="Recommendations">
+        <div className="-mt-8 mb-4 pl-5">{searchBar}</div>
         <div className="sticky top-20">
           <div className="border-l border-[color:var(--color-border)] pl-5">
             <div className="border border-[color:var(--color-border)] bg-[var(--color-bg-soft)] rounded-[var(--radius)] p-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
@@ -34,12 +37,12 @@ export default function RecommendationsList({ children }: { children: React.Reac
                   <strong className="text-[color:var(--color-text)]">Staff Picks</strong>
                 </header>
                 <ul className="list-none p-0 m-0 space-y-3">
-                  {staffPicks.map((p) => (
-                    <li key={p.title}>
-                      <Link className="block hover:underline" to={p.to}>
-                        <div className="text-[0.9rem] text-[color:var(--color-text)] leading-snug">{p.title}</div>
-                        {p.by && (
-                          <div className="text-[0.8rem] text-[color:var(--color-muted)]">{p.by}</div>
+                  {staffPicks.map((pick) => (
+                    <li key={pick.title}>
+                      <Link className="block hover:underline" to={pick.to}>
+                        <div className="text-[0.9rem] text-[color:var(--color-text)] leading-snug">{pick.title}</div>
+                        {pick.by && (
+                          <div className="text-[0.8rem] text-[color:var(--color-muted)]">{pick.by}</div>
                         )}
                       </Link>
                     </li>
@@ -57,13 +60,13 @@ export default function RecommendationsList({ children }: { children: React.Reac
                   <strong className="text-[color:var(--color-text)]">Recommended topics</strong>
                 </header>
                 <div className="flex flex-wrap gap-2">
-                  {topics.map((t) => (
+                  {topics.map((topic) => (
                     <Link
-                      key={t}
-                      to={`/tag/${encodeURIComponent(t)}`}
+                      key={topic}
+                      to={`/tag/${encodeURIComponent(topic)}`}
                       className="inline-flex items-center rounded-full border border-[color:var(--color-border)] px-3 py-1 text-[0.85rem] text-[color:var(--color-text)] hover:border-[color:var(--color-text)]"
                     >
-                      {t}
+                      {topic}
                     </Link>
                   ))}
                 </div>
