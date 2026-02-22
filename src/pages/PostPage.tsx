@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import Page from '../components/layout/Page'
 import Prose from '../components/content/Prose'
 import TableOfContents from '../components/content/TableOfContents'
@@ -10,7 +11,9 @@ import type { Post } from '../data/types'
 
 export default function PostPage() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const [post, setPost] = useState<Post | null>(null)
+  
 
   useEffect(() => {
     loadAllPosts().then(all => setPost(all.find(p => p.slug === slug) || null))
@@ -24,6 +27,14 @@ export default function PostPage() {
     <Page fluid>
       <article>
         <header className="mb-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-2 text-[color:var(--color-muted)] hover:text-[color:var(--color-text)] mb-4 transition-colors"
+          >
+            <ArrowLeftIcon className="w-4 h-4" />
+            Back
+          </button>
+
           <h1>{post.title}</h1>
           <p className="text-[color:var(--color-muted)]">{new Date(post.date).toLocaleDateString()} • {post.readingTime} min read</p>
           <TagList tags={post.tags} />

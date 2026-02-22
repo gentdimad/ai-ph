@@ -5,6 +5,7 @@ import SubscribeCTA from '../components/content/SubscribeCTA'
 import { loadAllPosts } from '../data/index'
 import type { Post } from '../data/types'
 import RecommendationsList from '../components/layout/RecommendationsList'
+import SearchBar from '../components/search/SearchBar'
 
 export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -14,11 +15,14 @@ export default function HomePage() {
     <Page>
       <RecommendationsList>
         {/*{featured && <FeaturedPost post={featured} />}*/}
-        <PostList posts={posts} />
-        <div style={{ marginTop: '2rem' }}>
-          <SubscribeCTA />
-        </div>
-      </RecommendationsList>
+        <div className="mb-6">
+        <SearchBar />
+      </div>
+      <PostList posts={posts} />
+      <div style={{ marginTop: '2rem' }}>
+        <SubscribeCTA />
+      </div>
+    </RecommendationsList>
     </Page>
   )
 }
