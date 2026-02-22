@@ -20,10 +20,15 @@ export default function RecommendationsList({ children }: { children: React.Reac
   const staffPicks: StaffPick[] = staffPicksData
   const topics: Topic[] = topicsData
 
+  const childArray = React.Children.toArray(children)
+  const firstChild = childArray[0]
+  const restChildren = childArray.slice(1)
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_minmax(260px,320px)]">
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0">{restChildren}</div>
       <aside className="hidden lg:block" aria-label="Recommendations">
+        <div className="-mt-8 mb-4 pl-5">{firstChild}</div>
         <div className="sticky top-20">
           <div className="border-l border-[color:var(--color-border)] pl-5">
             <div className="border border-[color:var(--color-border)] bg-[var(--color-bg-soft)] rounded-[var(--radius)] p-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
