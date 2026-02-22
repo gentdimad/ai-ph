@@ -2,6 +2,7 @@ import type { Heading } from '../../data/types'
 
 export default function TableOfContents({ headings }: { headings: Heading[] }) {
   if (!headings?.length) return null
+
   return (
     <nav className="sticky top-20 pl-5 border-l border-dashed border-[color:var(--color-border)] text-[color:var(--color-muted)]" aria-label="Table of contents">
       <strong className="text-[color:var(--color-text)]">On this page</strong>
