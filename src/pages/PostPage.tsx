@@ -27,7 +27,7 @@ export default function PostPage() {
       <article>
         <header className="mb-6">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="inline-flex items-center gap-2 text-[color:var(--color-muted)] hover:text-[color:var(--color-text)] mb-4 transition-colors"
             aria-label="Go back"
           >
