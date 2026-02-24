@@ -26,7 +26,7 @@ function parseFrontmatter(raw: string): { fm: PostFrontmatter; body: string } {
         // Array syntax [a, b]
         if (val.startsWith('[') && val.endsWith(']')) {
           const arr = val.slice(1, -1).split(',').map(s => s.trim()).filter(Boolean).map(s => s.replace(/^['\"]|['\"]$/g, ''))
-          ;(fm as any)[key] = arr
+            ; (fm as any)[key] = arr
         } else {
           (fm as any)[key] = val
         }
@@ -51,7 +51,7 @@ export async function loadAllPosts(): Promise<Post[]> {
   }
   const posts: Post[] = []
 
-  for (const [, raw] of entries) {
+  for (const [path, raw] of entries) {
     const { fm, body } = parseFrontmatter(raw)
     if (!fm || !fm.slug || fm.draft) continue
 
@@ -64,7 +64,7 @@ export async function loadAllPosts(): Promise<Post[]> {
       text: String(text).replace(/<[^>]+>/g, '')
     }))
 
-    posts.push({ ...fm, html, readingTime, headings })
+    posts.push({ ...fm, html, readingTime, headings, path })
   }
 
   // Dedupe by slug in case multiple glob patterns matched the same file
