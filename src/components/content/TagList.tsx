@@ -5,7 +5,7 @@ export default function TagList({ tags }: { tags: string[] }) {
   return (
     <ul className="list-none p-0 mt-2 flex flex-wrap gap-2" aria-label="Post tags">
       {tags.map(t => (
-        <li key={t}><Link className="text-[color:var(--color-muted)] hover:underline" to={`/tag/${encodeURIComponent(t)}`}>#{t}</Link></li>
+        <li key={t}><Link className="text-app-muted hover:underline" to={`/tag/${encodeURIComponent(t)}`}>#{t}</Link></li>
       ))}
     </ul>
   )
