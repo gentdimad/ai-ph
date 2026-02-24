@@ -18,6 +18,7 @@ export type PostFrontmatter = {
   draft?: boolean
   series?: string
   readingTime?: number // computed
+  category?: string
 }
 
 export type Heading = { depth: number; text: string; id: string }
@@ -25,4 +26,12 @@ export type Heading = { depth: number; text: string; id: string }
 export type Post = PostFrontmatter & {
   html: string
   headings: Heading[]
+  path: string
+}
+
+export type Topic = {
+  slug: string
+  title: string
+  description: string
+  directory: string // e.g. "python"
 }
