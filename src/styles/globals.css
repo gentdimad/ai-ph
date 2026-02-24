@@ -5,6 +5,7 @@
 /* Global styles using monochrome tokens from site config (injected as CSS variables). */
 :root {
   color-scheme: light dark;
+  --font-sans: 'Poppins', system-ui, sans-serif;
 }
 
 * {
@@ -319,7 +320,8 @@ footer.site-footer {
   word-break: break-word;
   padding: var(--space-5);
   border-radius: var(--radius);
-  background: #0f0f0f;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
   border: 1px solid var(--color-border);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -374,7 +376,8 @@ footer.site-footer {
 }
 
 .prose tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-bg-soft);
+  opacity: 0.8;
 }
 
 /* TOC */
@@ -426,11 +429,12 @@ footer.site-footer {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #8a8a8a;
+  color: var(--color-muted);
 }
 
 .token.punctuation {
-  color: #cfcfcf;
+  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .token.property,
@@ -438,12 +442,13 @@ footer.site-footer {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #e5e5e5;
+  color: var(--color-text);
 }
 
 .token.boolean,
 .token.number {
-  color: #d0d0d0;
+  color: var(--color-text);
+  opacity: 0.8;
 }
 
 .token.selector,
@@ -452,7 +457,7 @@ footer.site-footer {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #ffffff;
+  color: var(--color-accent);
 }
 
 .token.operator,
@@ -460,23 +465,53 @@ footer.site-footer {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #cdcdcd;
+  color: var(--color-text);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #fff;
+  color: var(--color-text);
   font-weight: 600;
 }
 
 .token.function,
 .token.class-name {
-  color: #f3f3f3;
+  color: var(--color-text);
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #e0e0e0;
+  color: var(--color-text);
+}
+
+/* Light mode specific Prism tweaks */
+[data-theme="light"] .token.punctuation {
+  color: #333;
+}
+
+[data-theme="light"] .token.string,
+[data-theme="light"] .token.attr-value {
+  color: #222;
+}
+
+[data-theme="light"] .token.keyword {
+  color: #000;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

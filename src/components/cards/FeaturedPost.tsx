@@ -1,14 +1,32 @@
 import { Link } from 'react-router-dom'
 import type { Post } from '../../data/types'
-import TagList from '../content/TagList'
 
 export default function FeaturedPost({ post }: { post: Post }) {
+  // Extract a preview from the HTML content
+  const plainText = post.html.replace(/<[^>]+>/g, ' ').substring(0, 450) + '...'
+
   return (
-    <section className="p-6 border border-[color:var(--color-border)] rounded-[var(--radius)] bg-[var(--color-elev)] mb-6" aria-label="Featured post">
-      <h2 className="m-0 text-2xl font-bold"><Link to={`/post/${post.slug}`}>{post.title}</Link></h2>
-      <p className="text-[color:var(--color-muted)] mt-2">{post.description}</p>
-      <div className="text-[color:var(--color-muted)] mt-2">{new Date(post.date).toLocaleDateString()} • {post.readingTime} min read</div>
-      <TagList tags={post.tags} />
-    </section>
+    <article className="bg-app-bg border border-app-border rounded-2xl overflow-hidden max-w-4xl">
+      <div className="p-10">
+        <div className="text-app-muted text-xs font-medium mb-4 uppercase tracking-[0.2em]">
+          FEATURED POST
+        </div>
+
+        <h2 className="text-6xl font-bold mb-6 text-app-text leading-tight">
+          <Link to={`/post/${post.slug}`}>{post.title}</Link>
+        </h2>
+
+        <div className="text-app-muted text-sm leading-[1.6] mb-8 line-clamp-6">
+          {plainText}
+        </div>
+
+        <Link
+          to={`/post/${post.slug}`}
+          className="inline-flex items-center gap-2 text-2xl text-app-text font-medium hover:gap-3 transition-all"
+        >
+          Read Full Post →
+        </Link>
+      </div>
+    </article>
   )
 }

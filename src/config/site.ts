@@ -42,6 +42,8 @@ export const site = {
     '--font-mono': "'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
     '--radius': '10px',
     '--max-width': '100%',
+    '--color-code-bg': '#0f0f0f',
+    '--color-code-text': '#eaeaea',
   },
   themeLight: {
     '--color-bg': '#ffffff',
@@ -50,7 +52,9 @@ export const site = {
     '--color-border': '#e5e5e5',
     '--color-text': '#111111',
     '--color-muted': '#606060',
-    '--color-accent': '#000000'
+    '--color-accent': '#000000',
+    '--color-code-bg': '#f3f3f3',
+    '--color-code-text': '#111111'
   }
 } as const
 

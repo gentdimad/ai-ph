@@ -6,7 +6,19 @@ module.exports = {
   ],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        app: {
+          bg: 'var(--color-bg)',
+          'bg-soft': 'var(--color-bg-soft)',
+          elev: 'var(--color-elev)',
+          border: 'var(--color-border)',
+          text: 'var(--color-text)',
+          muted: 'var(--color-muted)',
+          accent: 'var(--color-accent)',
+        }
+      }
+    },
   },
   plugins: [],
 }
