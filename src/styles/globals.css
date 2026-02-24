@@ -5,6 +5,7 @@
 /* Global styles using monochrome tokens from site config (injected as CSS variables). */
 :root {
   color-scheme: light dark;
+  --font-sans: 'Poppins', system-ui, sans-serif;
 }
 
 * {
