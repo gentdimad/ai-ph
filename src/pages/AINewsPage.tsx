@@ -11,7 +11,6 @@ export default function AINewsPage() {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        setIsLoading(true)
         loadAllPosts().then(allPosts => {
             const news = allPosts.filter(p => p.category === 'news')
             setNewsPosts(news)

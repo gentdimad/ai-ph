@@ -17,9 +17,16 @@ export default function TopicPage() {
     const [posts, setPosts] = useState<Post[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
+    // Reset loading state synchronously when slug changes to avoid flashes/linter errors
+    const [prevSlug, setPrevSlug] = useState(slug)
+    if (slug !== prevSlug) {
+        setPrevSlug(slug)
+        setIsLoading(true)
+        setPosts([])
+    }
+
     useEffect(() => {
         if (topic) {
-            setIsLoading(true)
             loadAllPosts().then(allPosts => {
                 const filtered = allPosts.filter(p => p.path.includes(`/${topic.directory}/`))
                 setPosts(filtered)
