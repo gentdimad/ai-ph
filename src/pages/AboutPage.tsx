@@ -4,8 +4,8 @@ import { site } from '../config/site'
 export default function AboutPage() {
   return (
     <Page>
-      <h1 className='font-bold text-3xl'>About {site.siteName}</h1>
-      <p className="italic text-[color:var(--color-muted)] max-w-[70ch] mt-4">
+      <h1 className='font-bold text-3xl text-app-text'>About {site.siteName}</h1>
+      <p className="italic text-app-muted max-w-[70ch] mt-4">
         {site.description}
       </p>
       <div className='block mt-6'>
