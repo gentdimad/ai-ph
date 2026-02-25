@@ -49,7 +49,10 @@ export async function mdToHtml(md: string) {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .use(rehypeAutolink, { behavior: 'wrap' })
+    .use(rehypeAutolink, {
+      behavior: 'append',
+      properties: { className: ['anchor-link'], ariaLabel: 'Link to this section' }
+    })
     .use(rehypePrism)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(processedMd)
