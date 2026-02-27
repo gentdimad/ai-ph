@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { createRoot } from 'react-dom/client'
 import Page from '../components/layout/Page'
 import Prose from '../components/content/Prose'
 import TableOfContents from '../components/content/TableOfContents'
 import SocialShare from '../components/content/SocialShare'
 import TagList from '../components/content/TagList'
+import OnlinePythonCompiler from '../components/content/OnlinePythonCompiler'
 import { loadAllPosts } from '../data/index'
 import type { Post } from '../data/types'
 
@@ -17,6 +19,39 @@ export default function PostPage() {
   useEffect(() => {
     loadAllPosts().then(all => setPost(all.find(p => p.slug === slug) || null))
   }, [slug])
+
+  // Hydration for custom components like Python Compiler
+  useEffect(() => {
+    if (!post?.html) return
+
+    const roots: any[] = []
+    const container = document.querySelector('.prose')
+    if (!container) return
+
+    // Find all compiler roots
+    const compilerElements = container.querySelectorAll('.python-compiler-root')
+
+    compilerElements.forEach((el) => {
+      const base64Code = el.getAttribute('data-code') || ''
+      let decodedCode = ''
+      try {
+        decodedCode = decodeURIComponent(escape(atob(base64Code)))
+      } catch (e) {
+        decodedCode = base64Code // Fallback
+      }
+
+      const root = createRoot(el)
+      root.render(<OnlinePythonCompiler initialCode={decodedCode} />)
+      roots.push(root)
+    })
+
+    return () => {
+      roots.forEach(root => {
+        // Use a small timeout to ensure React bit is done rendering before unmounting
+        setTimeout(() => root.unmount(), 0)
+      })
+    }
+  }, [post?.html])
 
   if (!post) return <Page><p>Loading…</p></Page>
 

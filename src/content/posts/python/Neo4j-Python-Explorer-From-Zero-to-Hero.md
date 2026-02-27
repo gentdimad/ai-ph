@@ -122,6 +122,26 @@ Update | SET | Changes properties (like age or name).
 Delete | DELETE | Use DETACH DELETE to remove a node and its connections.
 [/table]
 
+# 🐍 5. Try it Yourself!
+Use the interactive playground below to test some Python logic. This connects to our secure backend to run your code in real-time.
+
+[python]
+# Welcome to the AI PH Python Playground!
+# Try calculating some statistics or logic
+
+def recommend_tech(skill):
+    if skill.lower() == "python":
+        return "You should dive into Neo4j and AI PH!"
+    else:
+        return "Time to learn Python! 🚀"
+
+print(recommend_tech("python"))
+
+# Try a loop
+for i in range(3):
+    print(f"Graph Database Step {i+1}")
+[/python]
+
 💡Pro Tips for Young Devs
 - **The Browser is your Friend:** Keep your Neo4j Browser open while coding. Run MATCH (n) RETURN n to see your Python code working in real-time!
 

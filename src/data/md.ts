@@ -8,8 +8,8 @@ import rehypeStringify from 'rehype-stringify'
 import rehypePrism from 'rehype-prism-plus'
 
 export async function mdToHtml(md: string) {
-  // Pre-process custom [table] tags
-  const processedMd = md.replace(/\[table\]([\s\S]*?)\[\/table\]/g, (_match, content) => {
+  // 1. Pre-process custom [table] tags
+  const tableProcessedMd = md.replace(/\[table\]([\s\S]*?)\[\/table\]/g, (_match, content) => {
     const lines = content.trim().split('\n').map((l: string) => l.trim()).filter(Boolean)
     if (lines.length === 0) return ''
 
@@ -43,6 +43,29 @@ export async function mdToHtml(md: string) {
 
     return `\n\n${desktopTable}\n\n${mobileContainer}\n\n`
   })
+
+  // 2. Pre-process custom [python] tags
+  const processedMd = tableProcessedMd.replace(/\[python\]([\s\S]*?)\[\/python\]/g, (_match, code) => {
+    const trimmedCode = code.trim();
+    // btoa is available in browser environments, for Node/Build-time we might need Buffer
+    // However, mdToHtml might be called during build. Let's use    // Safe base64 for both browser and node
+    let base64Code = '';
+    try {
+      if (typeof btoa !== 'undefined') {
+        base64Code = btoa(unescape(encodeURIComponent(trimmedCode)));
+      } else if (typeof (globalThis as any).Buffer !== 'undefined') {
+        base64Code = (globalThis as any).Buffer.from(trimmedCode).toString('base64');
+      } else {
+        // Simple fallback
+        base64Code = trimmedCode;
+      }
+    } catch (e) {
+      console.error('Failed to encode python code:', e);
+      base64Code = trimmedCode;
+    }
+
+    return `\n\n<div class="python-compiler-root" data-code="${base64Code}"></div>\n\n`;
+  });
 
   const file = await unified()
     .use(remarkParse)
