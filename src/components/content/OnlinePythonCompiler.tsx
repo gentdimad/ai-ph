@@ -101,8 +101,8 @@ export default function OnlinePythonCompiler({ initialCode = '# Write your Pytho
                         onClick={runCode}
                         disabled={isRunning}
                         className={`flex items-center gap-2 px-5 py-1.5 rounded-lg text-sm font-bold transition-all shadow-lg ${isRunning
-                                ? 'opacity-50 cursor-not-allowed bg-[var(--color-bg-soft)] text-[color:var(--color-muted)]'
-                                : 'bg-[color:var(--color-accent)] hover:brightness-110 text-[var(--color-bg)] hover:scale-[1.02] active:scale-[0.98] shadow-[color:var(--color-accent)]/20'
+                            ? 'opacity-50 cursor-not-allowed bg-[var(--color-bg-soft)] text-[color:var(--color-muted)]'
+                            : 'bg-[color:var(--color-accent)] hover:brightness-110 text-[var(--color-bg)] hover:scale-[1.02] active:scale-[0.98] shadow-[color:var(--color-accent)]/20'
                             }`}
                     >
                         {isRunning ? (
@@ -137,7 +137,7 @@ export default function OnlinePythonCompiler({ initialCode = '# Write your Pytho
                 </div>
                 <div
                     ref={outputRef}
-                    className={`p-4 font-mono text-sm overflow-auto max-h-40 min-h-[4rem] whitespace-pre-wrap leading-relaxed transition-colors ${error ? 'text-red-400' : 'text-emerald-400 dark:text-emerald-300'
+                    className={`p-4 font-mono text-sm overflow-auto max-h-40 min-h-[4rem] whitespace-pre-wrap leading-relaxed transition-colors ${error ? 'text-red-500' : 'text-rose-400 dark: text-rose-400'
                         }`}
                 >
                     {output || <span className="opacity-30 italic">Console output will appear here...</span>}
