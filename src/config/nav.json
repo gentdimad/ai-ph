@@ -2,7 +2,7 @@
   {
     "icon": "home",
     "title": "Home",
-    "to": "/"
+    "to": "/home"
   },
   {
     "icon": "user",

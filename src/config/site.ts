@@ -44,6 +44,7 @@ export const site = {
     '--max-width': '100%',
     '--color-code-bg': '#0f0f0f',
     '--color-code-text': '#eaeaea',
+    '--color-brand': '#e05030',
   },
   themeLight: {
     '--color-bg': '#ffffff',
@@ -54,7 +55,8 @@ export const site = {
     '--color-muted': '#606060',
     '--color-accent': '#000000',
     '--color-code-bg': '#f3f3f3',
-    '--color-code-text': '#111111'
+    '--color-code-text': '#111111',
+    '--color-brand': '#c04020'
   }
 } as const
 
